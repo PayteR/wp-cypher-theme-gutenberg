@@ -14,4 +14,8 @@ namespace Cypher;
  */
 class Gutenberg {
 
+    function hero () {
+
+    }
+
 }

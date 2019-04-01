@@ -27,6 +27,7 @@
       "Cypher\\": "src"
     },
     "files": [
+      "helpers.php"
     ]
   }
 }
