@@ -19,6 +19,6 @@ class Blocks
      */
     public static function hero()
     {
-        add_action( 'init', [\Cypher\Gutenberg\Hero\Block::class, 'init'] );
+        add_action( 'enqueue_block_editor_assets', [\Cypher\Gutenberg\Hero\Block::class, 'init'] );
     }
 }

@@ -1,21 +1,28 @@
 <?php
 
 /**
- * Get the cypher container.
+ * Check if gutenberg editor si currently loaded and visible
+ * It must be called in admin after 'enqueue_block_editor_assets' action
  *
  * @return bool
  */
-function is_gutenberg_active()
-{
-    // Gutenberg plugin is installed and activated.
-    $gutenberg = ! ( false === has_filter( 'replace_editor', 'gutenberg_init' ) );
+if(!function_exists('is_gutenberg_loaded')) {
+    function is_gutenberg_loaded()
+    {
+        if(!is_admin() || !function_exists('get_current_screen')) {
+            return false;
+        }
 
-    // Block editor since 5.0.
-    $block_editor = version_compare( $GLOBALS['wp_version'], '5.0-beta', '>' );
+        global $current_screen;
 
-    if ( ! $gutenberg && ! $block_editor ) {
+        if ( method_exists( $current_screen, 'is_block_editor' ) &&
+            $current_screen->is_block_editor()
+        ) {
+            // Gutenberg page on 5+.
+            return true;
+        }
+
         return false;
     }
-
-    return true;
 }
+
