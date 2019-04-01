@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Check if gutenberg editor si currently loaded and visible
  * It must be called in admin after 'enqueue_block_editor_assets' action

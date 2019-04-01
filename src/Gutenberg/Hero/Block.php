@@ -29,7 +29,7 @@ class Block extends BlockAbstract {
         load_plugin_textdomain( 'gutenberg-examples', false, basename( __DIR__ ) . '/languages' );
 
         if ( !is_gutenberg_loaded() ) {
-            // Gutenberg is not active.
+            // Gutenberg is not loaded
             return;
         }
 
