@@ -30,7 +30,7 @@ class BlockAbstract
      * @param string $filename
      * @return false|string
      */
-    public static function javascript($__file__, $filename = 'block.js')
+    public static function javascript($__file__, $filename = 'block.build.js')
     {
         return file_get_contents(plugin_dir_path( $__file__ ) . $filename);
     }
