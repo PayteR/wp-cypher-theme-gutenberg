@@ -26,21 +26,19 @@ class Block extends BlockAbstract {
      * Passes translations to JavaScript.
      */
     static function init() {
-        load_plugin_textdomain( 'gutenberg-examples', false, basename( __DIR__ ) . '/languages' );
-
         if ( !is_gutenberg_loaded() ) {
             // Gutenberg is not loaded
             return;
         }
 
         self::enqueue(
-            'gutenberg-examples-01',
+            'cypher/container',
             self::javascript(__FILE__),
             ['wp-blocks', 'wp-i18n', 'wp-element']
         );
 
-        register_block_type( 'gutenberg-examples/example-01-basic', array(
-            'editor_script' => 'gutenberg-examples-01',
+        register_block_type( 'cypher/container', array(
+            'editor_script' => 'cypher/container',
         ) );
     }
 }

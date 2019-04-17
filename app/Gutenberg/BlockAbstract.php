@@ -38,8 +38,6 @@ class BlockAbstract
     public static function isGutengergActive()
     {
         global $current_screen;
-        $xx = has_blocks();
-//        $current_screen = \get_current_screen();
         if (!$current_screen) {
             return false;
         }

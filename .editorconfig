@@ -13,5 +13,9 @@ insert_final_newline = true
 [*.php]
 indent_size = 4
 
-[resources/views/**.php]
-indent_size = 2
+[*.js]
+indent_style = tab
+
+[*.md]
+trim_trailing_whitespace = false
+
