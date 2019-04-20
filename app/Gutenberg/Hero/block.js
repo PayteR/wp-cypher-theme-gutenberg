@@ -5,8 +5,14 @@
  * Simple block, renders and saves the same content without any interactivity.
  */
 
-const { __ } = wp.i18n; // Import __() from wp.i18n
-const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+// <div style="background-color:#900;color:#fff;padding:20px" class="wp-block-cypher-container container has-width-fullwidth" value="value test">Hello World, step 1 (from the editor).</div>
+const {__} = wp.i18n; // Import __() from wp.i18n
+const {registerBlockType} = wp.blocks; // Import registerBlockType() from wp.blocks
+const {
+	RichText,
+	AlignmentToolbar,
+	BlockControls,
+} = wp.editor;
 
 /**
  * Register: aa Gutenberg Block.
@@ -21,17 +27,26 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType( 'cgb/block-my-block', {
+registerBlockType('cypher/hero', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'my-block - CGB Block' ), // Block title.
-	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
-	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting,
+	title: __('Hero', 'cypher'), // Block title.
+	icon: 'universal-access-alt', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	category: 'layout', // Block category — Group blocks together based on common traits E.g. common, formatting,
 	// layout widgets, embed.
-	keywords: [
-		__( 'my-block — CGB Block' ),
-		__( 'CGB Example' ),
-		__( 'create-guten-block' ),
-	],
+	keywords: [],
+
+	attributes: {
+		className: 'hero',
+		content: {
+			type: 'array',
+			source: 'children',
+			selector: 'p',
+		},
+		alignment: {
+			type: 'string',
+			default: 'none',
+		},
+	},
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
@@ -41,50 +56,50 @@ registerBlockType( 'cgb/block-my-block', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
-	edit: function( props ) {
-		// Creates a <p class='wp-block-cgb-block-my-block'></p>.
-		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>my-block</code> is a new Gutenberg block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
-			</div>
-		);
-	},
+	edit: ( props ) => {
+		const {
+			attributes: {
+				content,
+				alignment,
+			},
+			className,
+		} = props;
 
-	/**
-	 * The save function defines the way in which the different attributes should be combined
-	 * into the final markup, which is then serialized by Gutenberg into post_content.
-	 *
-	 * The "save" property must be specified and must be a valid function.
-	 *
-	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
-	 */
-	save: function( props ) {
+		const onChangeContent = ( newContent ) => {
+			props.setAttributes( { content: newContent } );
+		};
+
+		const onChangeAlignment = ( newAlignment ) => {
+			props.setAttributes( { alignment: newAlignment === undefined ? 'none' : newAlignment } );
+		};
+
 		return (
 			<div>
-				<p>— Hello from the frontend.</p>
-				<p>
-					CGB BLOCK: <code>my-block</code> is a new Gutenberg block.
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
+				{
+					<BlockControls>
+						<AlignmentToolbar
+							value={ alignment }
+							onChange={ onChangeAlignment }
+						/>
+					</BlockControls>
+				}
+				<RichText
+					className={ className }
+					style={ { textAlign: alignment } }
+					tagName="p"
+					onChange={ onChangeContent }
+					value={ content }
+				/>
 			</div>
 		);
 	},
-} );
+	save: ( props ) => {
+		return (
+			<RichText.Content
+				className={ `gutenberg-examples-align-${ props.attributes.alignment }` }
+				tagName="p"
+				value={ props.attributes.content }
+			/>
+		);
+	},
+});

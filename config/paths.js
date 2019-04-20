@@ -16,6 +16,8 @@ module.exports = {
 	dotenv: resolvePlugin( '.env' ),
 	pluginSrc: resolvePlugin( 'src' ), // Plugin src folder path.
 	entry: {
+		'./app/Gutenberg/Accordion/block.build': './app/Gutenberg/Accordion/block' ,
+		'./app/Gutenberg/Container/block.build': './app/Gutenberg/Container/block' ,
 		'./app/Gutenberg/Hero/block.build': './app/Gutenberg/Hero/block' ,
 	},
 	yarnLockFile: resolvePlugin( 'yarn.lock' ),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cypher\Gutenberg\Hero;
+namespace Cypher\Gutenberg\Container;
 
 use Cypher\Gutenberg\BlockAbstract;
 
@@ -32,13 +32,13 @@ class Block extends BlockAbstract {
         }
 
         self::enqueue(
-            'cypher/hero',
+            'cypher/container',
             self::javascript(__FILE__),
             ['wp-blocks', 'wp-i18n', 'wp-element', 'wp-components', 'wp-editor']
         );
 
-        register_block_type( 'cypher/hero', array(
-            'editor_script' => 'cypher/hero',
+        register_block_type( 'cypher/container', array(
+            'editor_script' => 'cypher/container',
         ) );
     }
 }
