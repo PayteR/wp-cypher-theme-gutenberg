@@ -18,6 +18,7 @@ module.exports = {
 	entry: {
 		'./app/Gutenberg/Accordion/block.build': './app/Gutenberg/Accordion/block' ,
 		'./app/Gutenberg/Container/block.build': './app/Gutenberg/Container/block' ,
+		'./app/Gutenberg/Columns/block.build': './app/Gutenberg/Columns/block' ,
 		'./app/Gutenberg/Hero/block.build': './app/Gutenberg/Hero/block' ,
 	},
 	yarnLockFile: resolvePlugin( 'yarn.lock' ),
