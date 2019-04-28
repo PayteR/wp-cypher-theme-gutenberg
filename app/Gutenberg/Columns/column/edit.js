@@ -17,6 +17,7 @@ const {
 	PanelBody,
 	RangeControl,
 	withFallbackStyles,
+	ToggleControl,
 } = wp.components;
 
 const {
@@ -78,17 +79,23 @@ class ColumnBlock extends Component {
 
 		const {
 			textAlign,
+			gridSpace,
+			gridOffset,
+			isNarrow,
 		} = attributes;
 
-		const classes = classnames( className, `column`, {
-			[ 'has-text-color' ]: textColor.color,
-			[ 'has-background' ]: backgroundColor.color,
-			[ `has-text-${ textAlign }` ]: textAlign === 'left' || textAlign === 'right',
-			[ `has-text-centered` ]: textAlign === 'center',
-			[ backgroundColor.class ]: backgroundColor.class,
-			[ textColor.class ]: textColor.class,
-			[ fontSize.class ]: fontSize.class,
-		} );
+		const classes = classnames(className, `column`, {
+			['has-text-color']: textColor.color,
+			['has-background']: backgroundColor.color,
+			[`has-text-${textAlign}`]: textAlign === 'left' || textAlign === 'right',
+			[`has-text-centered`]: textAlign === 'center',
+			[backgroundColor.class]: backgroundColor.class,
+			[textColor.class]: textColor.class,
+			[fontSize.class]: fontSize.class,
+			[`is-${gridSpace}`]: gridSpace && !isNarrow,
+			[`is-offset-${gridOffset}`]: gridOffset && !isNarrow,
+			[`is-narrow`]: isNarrow,
+		});
 
 		const styles = {
 			backgroundColor: backgroundColor.class ? undefined : backgroundColor.color,
@@ -118,6 +125,35 @@ class ColumnBlock extends Component {
 						fallbackFontSize={ fallbackFontSize }
 						value={ fontSize.size }
 						onChange={ setFontSize }
+					/>
+					<RangeControl
+						label={ __( 'Grid Space (is-[x])' ) }
+						value={ gridSpace }
+						style={isNarrow ? {'display':'none'} : {}}
+						onChange={ ( nextGridSpace ) => {
+							setAttributes( {
+								gridSpace: nextGridSpace,
+							} );
+						} }
+						min={ 1 }
+						max={ 12 }
+					/>
+					<RangeControl
+						label={ __( 'Grid Offset is-offset-[x]' ) }
+						style={isNarrow ? {'display':'none'} : {}}
+						value={ gridOffset }
+						onChange={ ( nextGridOffset ) => {
+							setAttributes( {
+								gridOffset: nextGridOffset,
+							} );
+						} }
+						min={ 1 }
+						max={ 12 }
+					/>
+					<ToggleControl
+						label={ __( 'is-narrow' ) }
+						checked={ isNarrow }
+						onChange={ ( nextIsNarrow ) => { setAttributes( { isNarrow: nextIsNarrow } ) } }
 					/>
 				</PanelBody>
 				<PanelColorSettings

@@ -18,26 +18,36 @@ export default function save({attributes}) {
 		backgroundColor,
 		fontSize,
 		textAlign,
+		breakpoint,
+		gap,
+		vcentered,
+		centered,
+		multiline,
 		containerWidth,
 		customBackgroundColor,
 		customTextColor,
 		customFontSize,
 	} = attributes;
 
-	const textClass = getColorClassName( 'color', textColor );
-	const backgroundClass = getColorClassName( 'background-color', backgroundColor );
-	const fontSizeClass = getFontSizeClass( fontSize );
+	const textClass = getColorClassName('color', textColor);
+	const backgroundClass = getColorClassName('background-color', backgroundColor);
+	const fontSizeClass = getFontSizeClass(fontSize);
 
-	const classes = classnames( className, `columns`, {
+	const classes = classnames(className, `columns`, {
 		'has-text-color': textColor || customTextColor,
 		'has-background': backgroundColor || customBackgroundColor,
 		[textClass]: textClass,
 		[backgroundClass]: backgroundClass,
 		[fontSizeClass]: fontSizeClass,
 		[`has-width-${containerWidth}`]: containerWidth,
-		[`has-text-${ textAlign }`]: textAlign === 'left' || textAlign === 'right',
+		[`has-text-${textAlign}`]: textAlign === 'left' || textAlign === 'right',
 		[`has-text-centered`]: textAlign === 'center',
-	} );
+		[breakpoint]: breakpoint,
+		[`is-variable is-${gap}`]: gap,
+		['is-vcentered']: vcentered,
+		['is-centered']: centered,
+		['is-multiline']: multiline,
+	});
 
 	const styles = {
 		backgroundColor: backgroundClass ? undefined : customBackgroundColor,
@@ -48,7 +58,7 @@ export default function save({attributes}) {
 
 	return (
 		<div className={classes} style={styles}>
-			<InnerBlocks.Content />
+			<InnerBlocks.Content/>
 		</div>
 	);
 }

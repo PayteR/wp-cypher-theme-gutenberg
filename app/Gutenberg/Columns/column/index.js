@@ -18,8 +18,17 @@ wp.blocks.registerBlockType('cypher/column', {
 	parent: [ 'cypher/columns' ],
 	category: "common",
 	attributes: {
-		"verticalAlignment": {
-			"type": "string"
+		verticalAlignment: {
+			type: "string"
+		},
+		gridSpace: {
+			type: "number"
+		},
+		gridOffset: {
+			type: "number"
+		},
+		isNarrow: {
+			type: "boolean"
 		}
 	},
 	supports: {

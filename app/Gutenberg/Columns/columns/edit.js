@@ -17,6 +17,8 @@ const {
 	PanelBody,
 	RangeControl,
 	withFallbackStyles,
+	SelectControl,
+	ToggleControl,
 } = wp.components;
 
 const {
@@ -96,19 +98,29 @@ class ColumnsBlock extends Component {
 		} = this.props;
 
 		const {
+			gap,
 			columns,
 			textAlign,
+			breakpoint,
+			vcentered,
+			centered,
+			multiline
 		} = attributes;
 
 
 		const classes = classnames( className, `columns`, {
-			[ 'has-text-color' ]: textColor.color,
-			[ 'has-background' ]: backgroundColor.color,
-			[ `has-text-${ textAlign }` ]: textAlign === 'left' || textAlign === 'right',
-			[ `has-text-centered` ]: textAlign === 'center',
-			[ backgroundColor.class ]: backgroundColor.class,
-			[ textColor.class ]: textColor.class,
-			[ fontSize.class ]: fontSize.class,
+			['has-text-color']: textColor.color,
+			['has-background']: backgroundColor.color,
+			[`has-text-${textAlign}`]: textAlign === 'left' || textAlign === 'right',
+			[`has-text-centered`]: textAlign === 'center',
+			[breakpoint]: breakpoint,
+			[`is-variable is-${gap}`]: gap,
+			[backgroundColor.class]: backgroundColor.class,
+			[textColor.class]: textColor.class,
+			[fontSize.class]: fontSize.class,
+			['is-vcentered']: vcentered,
+			['is-centered']: centered,
+			['is-multiline']: multiline,
 		} );
 
 		const styles = {
@@ -147,8 +159,50 @@ class ColumnsBlock extends Component {
 							min={ 2 }
 							max={ 12 }
 						/>
+						<SelectControl
+							label={ __( 'Breakpoint' ) }
+							value={ breakpoint } // e.g: value = [ 'a', 'c' ]
+							onChange={ ( breakpointNext ) => { setAttributes( { breakpoint: breakpointNext } ) } }
+							options={ [
+								{ value: '', label: 'default' },
+								{ value: 'is-mobile', label: 'mobile' },
+								{ value: 'is-small', label: 'small' },
+								{ value: 'is-tablet', label: 'tablet' },
+								{ value: 'is-desktop', label: 'desktop' },
+							] }
+						/>
+						<RangeControl
+							label={ __( 'Gap' ) }
+							value={ gap }
+							onChange={ ( nextGap ) => {
+								setAttributes( {
+									gap: nextGap,
+								} );
+							} }
+							min={ 0 }
+							max={ 8 }
+						/>
+						<ToggleControl
+							label={ __( 'vcentered' ) }
+							checked={ vcentered }
+							onChange={ ( vcenteredNext ) => { setAttributes( { vcentered: vcenteredNext } ) } }
+						/>
+						<ToggleControl
+							label={ __( 'centered' ) }
+							checked={ centered }
+							onChange={ ( centeredNext ) => { setAttributes( { centered: centeredNext } ) } }
+						/>
+						<ToggleControl
+							label={ __( 'multiline' ) }
+							checked={ multiline }
+							onChange={ ( multilineNext ) => { setAttributes( { multiline: multilineNext } ) } }
+						/>
 					</PanelBody>
-					<PanelBody title={ __( 'Text Settings' ) } className="blocks-font-size">
+					<PanelBody
+						title={ __( 'Text Settings' ) }
+						className="blocks-font-size"
+						initialOpen={ false }
+					>
 						<FontSizePicker
 							fallbackFontSize={ fallbackFontSize }
 							value={ fontSize.size }

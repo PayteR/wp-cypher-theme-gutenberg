@@ -40,6 +40,21 @@ wp.blocks.registerBlockType('cypher/columns', {
 		verticalAlignment: {
 			type: "string"
 		},
+		breakpoint: {
+			type: "string",
+		},
+		gap: {
+			type: "number",
+		},
+		vcentered: {
+			type: "boolean",
+		},
+		centered: {
+			type: "boolean",
+		},
+		multiline: {
+			type: "boolean",
+		},
 	},
 	supports: {
 		align: [ ],
