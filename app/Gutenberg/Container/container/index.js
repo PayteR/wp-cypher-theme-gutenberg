@@ -65,13 +65,13 @@ const blockAttributes = {
 		default: 100,
 	},
 	textAlign: {
-		"type": "string"
+		type: "string"
 	},
 	backgroundColor: {
-		"type": "string"
+		type: "string"
 	},
 	textColor: {
-		"type": "string"
+		type: "string"
 	},
 	fontSize: {
 		type: 'string',

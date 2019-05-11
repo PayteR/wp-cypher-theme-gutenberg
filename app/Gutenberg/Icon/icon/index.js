@@ -1,5 +1,5 @@
 /**
- * BLOCK: Atomic Blocks Example
+ * BLOCK: Atomic Blocks Icon
  */
 
 // Import block dependencies and components
@@ -14,22 +14,26 @@ const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
 const blockAttributes = {
-	examplePaddingTop: {
+	iconClassName: {
+		type: "string",
+		default: "fa fa-check"
+	},
+	iconPaddingTop: {
 		type: 'number',
 	},
-	examplePaddingRight: {
+	iconPaddingRight: {
 		type: 'number',
 	},
-	examplePaddingBottom: {
+	iconPaddingBottom: {
 		type: 'number',
 	},
-	examplePaddingLeft: {
+	iconPaddingLeft: {
 		type: 'number',
 	},
-	exampleMarginTop: {
+	iconMarginTop: {
 		type: 'number',
 	},
-	exampleMarginBottom: {
+	iconMarginBottom: {
 		type: 'number',
 	},
 	textAlign: {
@@ -52,24 +56,24 @@ wp.domReady(function () {
 
 
 // Register the block
-registerBlockType( 'cypher/example', {
-	title: __( 'Example', 'cypher' ),
-	description: __( 'Add a example block to wrap several blocks in a parent example.', 'cypher' ),
+registerBlockType( 'cypher/icon', {
+	title: __( 'Icon', 'cypher' ),
+	description: __( 'Add a icon block to wrap several blocks in a parent icon.', 'cypher' ),
+	icon: "info",
 	category: 'layout',
 	keywords: [
-		__( 'example', 'cypher' ),
+		__( 'icon', 'cypher' ),
 		__( 'section', 'cypher' ),
 		__( 'atomic', 'cypher' ),
 	],
 
 	attributes: blockAttributes,
 
-	// getEditWrapperProps( { exampleWidth } ) {
-	// 	if ( 'left' === exampleWidth || 'right' === exampleWidth || 'full' === exampleWidth ) {
-	// 		return { 'data-align': exampleWidth };
+	// getEditWrapperProps( { iconWidth } ) {
+	// 	if ( 'left' === iconWidth || 'right' === iconWidth || 'full' === iconWidth ) {
+	// 		return { 'data-align': iconWidth };
 	// 	}
 	// },
-	icon,
 
 	// Render the block components
 	edit,

@@ -26,13 +26,13 @@ wp.blocks.registerBlockType('cypher/columns', {
 			default: 2
 		},
 		textAlign: {
-			"type": "string"
+			type: "string"
 		},
 		backgroundColor: {
-			"type": "string"
+			type: "string"
 		},
 		textColor: {
-			"type": "string"
+			type: "string"
 		},
 		fontSize: {
 			type: 'string',

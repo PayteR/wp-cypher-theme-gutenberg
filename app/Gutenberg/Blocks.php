@@ -73,6 +73,14 @@ class Blocks
     /**
      * Theme customizer
      */
+    public static function icon()
+    {
+        add_action( 'enqueue_block_editor_assets', [Icon\Block::class, 'init'] );
+    }
+
+    /**
+     * Theme customizer
+     */
     public static function hero()
     {
         add_action( 'enqueue_block_editor_assets', [Hero\Block::class, 'init'] );

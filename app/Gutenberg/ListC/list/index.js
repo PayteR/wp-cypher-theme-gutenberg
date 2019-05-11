@@ -38,20 +38,20 @@ const blockAttributes = {
 		type: 'number',
 	},
 	textAlign: {
-		"type": "string"
+		type: "string"
 	},
 	backgroundColor: {
-		"type": "string"
+		type: "string"
 	},
 	textColor: {
-		"type": "string"
+		type: "string"
 	},
 	fontSize: {
 		type: 'string',
 	},
 	ordered: {
-		"type": "boolean",
-		"default": false
+		type: "boolean",
+		default: false
 	},
 	values: {
 		type: "string",

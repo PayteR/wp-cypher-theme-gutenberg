@@ -23,6 +23,7 @@ module.exports = {
 		'./app/Gutenberg/Heading/block.build': './app/Gutenberg/Heading/block',
 		'./app/Gutenberg/ListC/block.build': './app/Gutenberg/ListC/block',
 		'./app/Gutenberg/Divider/block.build': './app/Gutenberg/Divider/block',
+		'./app/Gutenberg/Icon/block.build': './app/Gutenberg/Icon/block',
 		'./app/Gutenberg/Hero/block.build': './app/Gutenberg/Hero/block',
 	},
 	yarnLockFile: resolvePlugin( 'yarn.lock' ),

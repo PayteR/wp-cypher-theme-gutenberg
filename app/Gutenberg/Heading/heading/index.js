@@ -46,7 +46,7 @@ const blockAttributes = {
 		type: "string"
 	},
 	backgroundColor: {
-		"type": "string"
+		type: "string"
 	}
 };
 
