@@ -50,7 +50,7 @@ export default function save({attributes}) {
 		[backgroundClass]: backgroundClass,
 		[`has-text-${ textAlign }`]: textAlign === 'left' || textAlign === 'right',
 		[`has-text-centered`]: textAlign === 'center',
-		['has-column-count-' + listColumnsCount]: !isNaN(listColumnsCount) && listColumnsCount > 1,
+		['has-column-count has-column-count-' + listColumnsCount]: !isNaN(listColumnsCount) && listColumnsCount > 1,
 		['has-pl-' + listPaddingLeft]: !isNaN(listPaddingLeft),
 		['has-pr-' + listPaddingRight]: !isNaN(listPaddingRight),
 		['has-pb-' + listPaddingBottom]: !isNaN(listPaddingBottom),

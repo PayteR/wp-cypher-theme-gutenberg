@@ -112,7 +112,7 @@ class ListBlock extends Component {
 			[backgroundColor.class]: backgroundColor.class,
 			[textColor.class]: textColor.class,
 			[fontSize.class]: fontSize.class,
-			['has-column-count-' + listColumnsCount]: !isNaN(listColumnsCount) && listColumnsCount > 1,
+			['has-column-count has-column-count-' + listColumnsCount]: !isNaN(listColumnsCount) && listColumnsCount > 1,
 			['has-pl-' + listPaddingLeft]: !isNaN(listPaddingLeft),
 			['has-pr-' + listPaddingRight]: !isNaN(listPaddingRight),
 			['has-pb-' + listPaddingBottom]: !isNaN(listPaddingBottom),

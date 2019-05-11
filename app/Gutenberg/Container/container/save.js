@@ -31,7 +31,6 @@ export default function save({attributes}) {
 		containerMaxWidth,
 		containerDimRatio,
 		containerImgURL,
-		containerImgID,
 		containerImgAlt,
 		containerImgFit,
 		containerWidth,
@@ -39,6 +38,7 @@ export default function save({attributes}) {
 		customBackgroundColor,
 		customTextColor,
 		customFontSize,
+		fontFamily,
 		direction,
 	} = attributes;
 
@@ -53,6 +53,7 @@ export default function save({attributes}) {
 		[fontSizeClass]: fontSizeClass,
 		[textClass]: textClass,
 		[backgroundClass]: backgroundClass,
+		[fontFamily]: fontFamily,
 		[`has-width-${containerWidth}`]: containerWidth,
 		[`has-text-${ textAlign }`]: textAlign === 'left' || textAlign === 'right',
 		[`has-text-centered`]: textAlign === 'center',

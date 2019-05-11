@@ -89,6 +89,7 @@ class ContainerBlock extends Component {
 		} = this.props;
 
 		const {
+			fontFamily,
 			textAlign,
 			containerWidth,
 			containerPaddingTop,
@@ -113,6 +114,7 @@ class ContainerBlock extends Component {
 			[backgroundColor.class]: backgroundColor.class,
 			[textColor.class]: textColor.class,
 			[fontSize.class]: fontSize.class,
+			[fontFamily]: fontFamily,
 			[`has-width-${containerWidth}`]: containerWidth,
 			['has-background-image']: !!containerImgURL,
 			['has-pl-' + containerPaddingLeft]: !isNaN(containerPaddingLeft),
@@ -289,6 +291,16 @@ class ContainerBlock extends Component {
 							fallbackFontSize={fallbackFontSize}
 							value={fontSize.size}
 							onChange={setFontSize}
+						/>
+						<SelectControl
+							label={ __( 'Font family' ) }
+							value={ fontFamily }
+							onChange={ ( value ) => { setAttributes( { fontFamily: value } ) } }
+							options={ [
+								{ value: '', label: 'default' },
+								{ value: 'is-family-primary', label: 'primary' },
+								{ value: 'is-family-secondary', label: 'secondary' },
+							] }
 						/>
 					</PanelBody>
 					<PanelColorSettings

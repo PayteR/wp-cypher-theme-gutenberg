@@ -156,7 +156,7 @@ class ColumnsBlock extends Component {
 									columns: nextColumns,
 								} );
 							} }
-							min={ 2 }
+							min={ 1 }
 							max={ 12 }
 						/>
 						<SelectControl

@@ -31,6 +31,9 @@ const blockAttributes = {
 	containerMarginBottom: {
 		type: 'number',
 	},
+	fontFamily: {
+		type: 'string',
+	},
 	containerWidth: {
 		type: 'string',
 		default: 'center',

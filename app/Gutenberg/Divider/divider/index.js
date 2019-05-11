@@ -39,10 +39,10 @@ const blockAttributes = {
 		type: 'number',
 	},
 	backgroundColor: {
-		"type": "string"
+		type: "string"
 	},
 	textColor: {
-		"type": "string"
+		type: "string"
 	},
 	fontSize: {
 		type: 'string',
