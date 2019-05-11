@@ -49,6 +49,14 @@ class Blocks
     /**
      * Theme customizer
      */
+    public static function heading()
+    {
+        add_action( 'enqueue_block_editor_assets', [Heading\Block::class, 'init'] );
+    }
+
+    /**
+     * Theme customizer
+     */
     public static function list()
     {
         add_action( 'enqueue_block_editor_assets', [ListC\Block::class, 'init'] );
@@ -57,9 +65,9 @@ class Blocks
     /**
      * Theme customizer
      */
-    public static function heading()
+    public static function divider()
     {
-        add_action( 'enqueue_block_editor_assets', [Heading\Block::class, 'init'] );
+        add_action( 'enqueue_block_editor_assets', [Divider\Block::class, 'init'] );
     }
 
     /**

@@ -77,12 +77,12 @@ const blockAttributes = {
 };
 
 wp.domReady(function () {
-	// wp.blocks.unregisterBlockType('core/button');
+	wp.blocks.unregisterBlockType('core/button');
 });
 
 // Register the block
 registerBlockType( 'cypher/button', {
-	title: __( 'button', 'cypher' ),
+	title: __( 'Button', 'cypher' ),
 	description: __( 'Add a button block to wrap several blocks in a parent button.', 'cypher' ),
 	category: 'layout',
 	keywords: [
