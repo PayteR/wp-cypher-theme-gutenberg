@@ -49,6 +49,14 @@ class Blocks
     /**
      * Theme customizer
      */
+    public static function heading()
+    {
+        add_action( 'enqueue_block_editor_assets', [Heading\Block::class, 'init'] );
+    }
+
+    /**
+     * Theme customizer
+     */
     public static function hero()
     {
         add_action( 'enqueue_block_editor_assets', [Hero\Block::class, 'init'] );

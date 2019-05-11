@@ -42,10 +42,6 @@ export default function save({attributes}) {
 		direction,
 	} = attributes;
 
-	console.log(
-		textAlign,
-	);
-
 	const textClass = getColorClassName( 'color', textColor );
 	const backgroundClass = getColorClassName( 'background-color', backgroundColor );
 	const fontSizeClass = getFontSizeClass( fontSize );
