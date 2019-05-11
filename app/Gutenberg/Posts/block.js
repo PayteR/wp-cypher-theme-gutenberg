@@ -1,0 +1,2 @@
+
+require('./posts/index');

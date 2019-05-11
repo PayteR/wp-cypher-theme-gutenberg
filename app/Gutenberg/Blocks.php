@@ -81,6 +81,15 @@ class Blocks
     /**
      * Theme customizer
      */
+    public static function posts()
+    {
+        add_action( 'enqueue_block_editor_assets', [Posts\Block::class, 'init'] );
+        add_action( 'init', [Posts\Block::class, 'register_block_type'] );
+    }
+
+    /**
+     * Theme customizer
+     */
     public static function hero()
     {
         add_action( 'enqueue_block_editor_assets', [Hero\Block::class, 'init'] );

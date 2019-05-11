@@ -22,3 +22,7 @@ export function getFontSizeClass(fontSizeSlug) {
 	return "has-".concat(kebabCase(fontSizeSlug), "-font-size");
 }
 
+// Truncate excerpt
+export function truncate(str, no_words) {
+	return str.split(" ").splice(0,no_words).join(" ");
+}
