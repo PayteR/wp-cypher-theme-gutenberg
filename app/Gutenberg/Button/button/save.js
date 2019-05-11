@@ -23,6 +23,8 @@ export default function save({attributes}) {
 		buttonRounded,
 		textAlign,
 		buttonUrl,
+		buttonMarginLeft,
+		buttonMarginRight,
 		buttonMarginTop,
 		buttonMarginBottom,
 		iconBeforeClass,
@@ -40,6 +42,8 @@ export default function save({attributes}) {
 		[`is-rounded`]: buttonRounded,
 		[`is-block`]: buttonAlign === 'full',
 
+		['has-ml-' + buttonMarginLeft]: !isNaN(buttonMarginLeft),
+		['has-mr-' + buttonMarginRight]: !isNaN(buttonMarginRight),
 		['has-mt-' + buttonMarginTop]: !isNaN(buttonMarginTop),
 		['has-mb-' + buttonMarginBottom]: !isNaN(buttonMarginBottom),
 	});

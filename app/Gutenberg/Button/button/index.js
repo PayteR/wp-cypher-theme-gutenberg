@@ -14,6 +14,12 @@ const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
 const blockAttributes = {
+	buttonMarginLeft: {
+		type: 'number',
+	},
+	buttonMarginRight: {
+		type: 'number',
+	},
 	buttonMarginTop: {
 		type: 'number',
 	},

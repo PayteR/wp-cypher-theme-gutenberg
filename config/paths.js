@@ -21,6 +21,7 @@ module.exports = {
 		'./app/Gutenberg/Container/block.build': './app/Gutenberg/Container/block',
 		'./app/Gutenberg/Columns/block.build': './app/Gutenberg/Columns/block',
 		'./app/Gutenberg/Heading/block.build': './app/Gutenberg/Heading/block',
+		'./app/Gutenberg/ListC/block.build': './app/Gutenberg/ListC/block',
 		'./app/Gutenberg/Hero/block.build': './app/Gutenberg/Hero/block',
 	},
 	yarnLockFile: resolvePlugin( 'yarn.lock' ),

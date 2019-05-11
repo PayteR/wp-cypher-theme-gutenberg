@@ -56,7 +56,7 @@ wp.domReady(function () {
 
 // Register the block
 registerBlockType( 'cypher/heading', {
-	title: __( '2heading', 'cypher' ),
+	title: __( 'Heading Cypher', 'cypher' ),
 	description: __( 'Add a heading block to wrap several blocks in a parent heading.', 'cypher' ),
 	category: 'common',
 	keywords: [

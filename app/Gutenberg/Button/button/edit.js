@@ -95,6 +95,8 @@ class ButtonBlock extends Component {
 			buttonRounded,
 			textAlign,
 			buttonUrl,
+			buttonMarginLeft,
+			buttonMarginRight,
 			buttonMarginTop,
 			buttonMarginBottom,
 			iconBeforeClass,
@@ -112,6 +114,8 @@ class ButtonBlock extends Component {
 			[`is-rounded`]: buttonRounded,
 			[`is-block`]: buttonAlign === 'full',
 
+			['has-ml-' + buttonMarginLeft]: !isNaN(buttonMarginLeft),
+			['has-mr-' + buttonMarginRight]: !isNaN(buttonMarginRight),
 			['has-mt-' + buttonMarginTop]: !isNaN(buttonMarginTop),
 			['has-mb-' + buttonMarginBottom]: !isNaN(buttonMarginBottom),
 		});
@@ -201,6 +205,22 @@ class ButtonBlock extends Component {
 						/>
 					</PanelBody>
 					<PanelBody title={__('Button Options')} initialOpen={true}>
+						<RangeControl
+							label={__('Margin Left')}
+							value={buttonMarginLeft}
+							onChange={(value) => setAttributes({buttonMarginLeft: value})}
+							min={0}
+							max={6}
+							step={1}
+						/>
+						<RangeControl
+							label={__('Margin Right')}
+							value={buttonMarginRight}
+							onChange={(value) => setAttributes({buttonMarginRight: value})}
+							min={0}
+							max={6}
+							step={1}
+						/>
 						<RangeControl
 							label={__('Margin Top')}
 							value={buttonMarginTop}
