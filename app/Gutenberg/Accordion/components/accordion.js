@@ -2,10 +2,10 @@
  * Accordion Wrapper
  */
 
-
-
 // Setup the block
 const { Component } = wp.element;
+
+const { slugify } = require('./../../utils/utils');
 
 // Import block dependencies and components
 import classnames from 'classnames';
@@ -22,18 +22,26 @@ export default class Accordion extends Component {
 	render() {
 
 		// Setup the attributes
-		const { accordionTitle, accordionText, accordionAlignment, accordionFontSize } = this.props.attributes;
+		const {
+			accordionTitle,
+			accordionText,
+			accordionAlignment,
+			accordionFontSize,
+			accordionHrefHash
+		} = this.props.attributes;
+
+
+		let hrefHash = 'accordion-' + (accordionHrefHash ? slugify(accordionHrefHash) : slugify(accordionTitle));
 
 		return (	
-			<div
+			<div id={ hrefHash }
 				style={ {
 					
 				} }
 				className={ classnames(
 					this.props.className,
 					accordionAlignment,
-					'accordion',
-					'font-size-' + accordionFontSize,
+					'accordion'
 				) }
 			>
 				{ this.props.children }

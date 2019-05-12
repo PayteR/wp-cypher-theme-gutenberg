@@ -20,6 +20,7 @@ const {
 	PanelRow,
 	RangeControl,
 	ToggleControl,
+	TextControl,
 } = wp.components;
 
 /**
@@ -34,25 +35,33 @@ export default class Inspector extends Component {
 	render() {
 
 		// Setup the attributes
-		const { accordionTitle, accordionText, accordionFontSize, accordionOpen } = this.props.attributes;
+		const {
+			setAttributes
+		} = this.props;
+
+		// Setup the attributes
+		const {
+			accordionTitle,
+			accordionText,
+			accordionFontSize,
+			accordionOpen,
+			accordionHrefHash
+		} = this.props.attributes;
 
 		return (
 		<InspectorControls key="inspector">
 			<PanelBody>
-				<RangeControl
-					label={ __( 'Font Size' ) }
-					value={ accordionFontSize }
-					onChange={ ( value ) => this.props.setAttributes( { accordionFontSize: value } ) }
-					min={ 14 }
-					max={ 24 }
-					step={ 1 }
+				<TextControl
+					label="Href # hash code"
+					value={ accordionHrefHash }
+					onChange={ ( value ) => setAttributes( { accordionHrefHash: value } ) }
+					onMouseoput
 				/>
-
-				<ToggleControl
-					label={ __( 'Open by default' ) }
-					checked={ accordionOpen }
-					onChange={ () => this.props.setAttributes( { accordionOpen: ! accordionOpen } ) }
-				/>
+				{/*<ToggleControl*/}
+					{/*label={ __( 'Open by default' ) }*/}
+					{/*checked={ accordionOpen }*/}
+					{/*onChange={ () => this.props.setAttributes( { accordionOpen: ! accordionOpen } ) }*/}
+				{/*/>*/}
 			</PanelBody>
 		</InspectorControls>
 		);

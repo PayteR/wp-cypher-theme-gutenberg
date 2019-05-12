@@ -26,3 +26,7 @@ export function getFontSizeClass(fontSizeSlug) {
 export function truncate(str, no_words) {
 	return str.split(" ").splice(0,no_words).join(" ");
 }
+
+export function slugify(text, separator = "-") {
+	return kebabCase(text, separator);
+}

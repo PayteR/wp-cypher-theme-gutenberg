@@ -5,8 +5,7 @@
 // Import block dependencies and components
 import Inspector from './components/inspector';
 import Accordion from './components/accordion';
-import icons from './components/icons';
-import omit from 'lodash/omit';
+const { slugify } = require('./../utils/utils');
 
 // Components
 const { __ } = wp.i18n;
@@ -53,15 +52,18 @@ const blockAttributes = {
 	},
 	accordionFontSize: {
 		type: 'number',
-		default: 18
 	},
 	accordionOpen: {
 		type: 'boolean',
 		default: false
 	},
+	accordionHrefHash: {
+		type: 'string',
+		default: ""
+	},
 };
 
-class ABAccordionBlock extends Component {
+class AccordionBlock extends Component {
 
 	render() {
 
@@ -112,27 +114,34 @@ registerBlockType( 'cypher/accordion', {
 	attributes: blockAttributes,
 
 	// Render the block components
-	edit: ABAccordionBlock,
+	edit: AccordionBlock,
 
 	// Save the attributes and markup
 	save: function( props ) {
 
 		// Setup the attributes
-		const { accordionTitle, accordionText, accordionAlignment, accordionFontSize, accordionOpen } = props.attributes;
+		const {
+			accordionTitle,
+			accordionText,
+			accordionAlignment,
+			accordionFontSize,
+			accordionOpen,
+			accordionHrefHash
+		} = props.attributes;
+
+		let hrefHash = 'accordion-' + (accordionHrefHash ? slugify(accordionHrefHash) : slugify(accordionTitle));
 
 		// Save the block markup for the front end
 		return (
 			<Accordion { ...props }>
-				<details open={accordionOpen}>
-					<summary className="accordion-heading">
-						<RichText.Content
-							value={ accordionTitle }
-						/>
-					</summary>
-					<div className="accordion-body content">
-						<InnerBlocks.Content />
-					</div>
-				</details>
+				<a href={'#' + hrefHash} className="accordion-heading">
+					<RichText.Content
+						value={ accordionTitle }
+					/>
+				</a>
+				<div className="accordion-body">
+					<InnerBlocks.Content />
+				</div>
 			</Accordion>
 		);
 	},
