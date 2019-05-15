@@ -42,11 +42,20 @@ const blockAttributes = {
 	backgroundColor: {
 		type: "string"
 	},
+	customBackgroundColor: {
+		"type": "string"
+	},
 	textColor: {
 		type: "string"
 	},
+	customTextColor: {
+		"type": "string"
+	},
 	fontSize: {
 		type: 'string',
+	},
+	customFontSize: {
+		"type": "number"
 	},
 };
 

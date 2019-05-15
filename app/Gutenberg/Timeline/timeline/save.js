@@ -18,47 +18,41 @@ export default function save({attributes}) {
 		backgroundColor,
 		fontSize,
 		textAlign,
-		breakpoint,
-		gap,
-		vcentered,
 		centered,
-		multiline,
-		columnsWidth,
+		timelineWidth,
 		customBackgroundColor,
 		customTextColor,
 		customFontSize,
-		columnsPaddingTop,
-		columnsPaddingRight,
-		columnsPaddingBottom,
-		columnsPaddingLeft,
-		columnsMarginTop,
-		columnsMarginBottom,
+		timelinePaddingTop,
+		timelinePaddingRight,
+		timelinePaddingBottom,
+		timelinePaddingLeft,
+		timelineMarginTop,
+		timelineMarginBottom,
+		headerBefore,
+		headerAfter,
 	} = attributes;
 
 	const textClass = getColorClassName('color', textColor);
 	const backgroundClass = getColorClassName('background-color', backgroundColor);
 	const fontSizeClass = getFontSizeClass(fontSize);
 
-	const classes = classnames(className, `columns`, {
+	const classes = classnames(className, `timeline`, {
 		'has-text-color': textColor || customTextColor,
 		'has-background': backgroundColor || customBackgroundColor,
 		[textClass]: textClass,
 		[backgroundClass]: backgroundClass,
 		[fontSizeClass]: fontSizeClass,
-		[`has-width-${columnsWidth}`]: columnsWidth,
+		[`has-width-${timelineWidth}`]: timelineWidth,
 		[`has-text-${textAlign}`]: textAlign === 'left' || textAlign === 'right',
 		[`has-text-centered`]: textAlign === 'center',
-		[breakpoint]: breakpoint,
-		[`is-variable is-${gap}`]: gap,
-		['is-vcentered']: vcentered,
 		['is-centered']: centered,
-		['is-multiline']: multiline,
-		['has-pl-' + columnsPaddingLeft]: !isNaN(columnsPaddingLeft),
-		['has-pr-' + columnsPaddingRight]: !isNaN(columnsPaddingRight),
-		['has-pb-' + columnsPaddingBottom]: !isNaN(columnsPaddingBottom),
-		['has-pt-' + columnsPaddingTop]: !isNaN(columnsPaddingTop),
-		['has-mt-' + columnsMarginTop]: !isNaN(columnsMarginTop),
-		['has-mb-' + columnsMarginBottom]: !isNaN(columnsMarginBottom),
+		['has-pl-' + timelinePaddingLeft]: !isNaN(timelinePaddingLeft),
+		['has-pr-' + timelinePaddingRight]: !isNaN(timelinePaddingRight),
+		['has-pb-' + timelinePaddingBottom]: !isNaN(timelinePaddingBottom),
+		['has-pt-' + timelinePaddingTop]: !isNaN(timelinePaddingTop),
+		['has-mt-' + timelineMarginTop]: !isNaN(timelineMarginTop),
+		['has-mb-' + timelineMarginBottom]: !isNaN(timelineMarginBottom),
 	});
 
 	const styles = {
@@ -70,7 +64,17 @@ export default function save({attributes}) {
 
 	return (
 		<div className={classes} style={styles}>
+			{ headerBefore && (
+				<header className="timeline-header">
+					<span className="tag is-medium is-primary">{ headerBefore }</span>
+				</header>
+			)}
 			<InnerBlocks.Content/>
+			{ headerAfter && (
+				<header className="timeline-header">
+					<span className="tag is-medium is-primary">{ headerAfter }</span>
+				</header>
+			)}
 		</div>
 	);
 }

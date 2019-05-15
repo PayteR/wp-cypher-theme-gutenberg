@@ -36,18 +36,27 @@ const blockAttributes = {
 	textAlign: {
 		type: "string"
 	},
-	textColor: {
-		type: "string"
-	},
-	fontSize: {
-		type: 'string',
-	},
 	fontFamily: {
 		type: "string"
 	},
 	backgroundColor: {
 		type: "string"
-	}
+	},
+	customBackgroundColor: {
+		"type": "string"
+	},
+	textColor: {
+		type: "string"
+	},
+	customTextColor: {
+		"type": "string"
+	},
+	fontSize: {
+		type: 'string',
+	},
+	customFontSize: {
+		"type": "number"
+	},
 };
 
 wp.domReady(function () {

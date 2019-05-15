@@ -25,6 +25,8 @@ module.exports = {
 		'./app/Gutenberg/Divider/block.build': './app/Gutenberg/Divider/block',
 		'./app/Gutenberg/Icon/block.build': './app/Gutenberg/Icon/block',
 		'./app/Gutenberg/Posts/block.build': './app/Gutenberg/Posts/block',
+		'./app/Gutenberg/Media/block.build': './app/Gutenberg/Media/block',
+		'./app/Gutenberg/Timeline/block.build': './app/Gutenberg/Timeline/block',
 		'./app/Gutenberg/Hero/block.build': './app/Gutenberg/Hero/block',
 	},
 	yarnLockFile: resolvePlugin( 'yarn.lock' ),

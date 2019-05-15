@@ -18,31 +18,27 @@ export default function save( { attributes } ) {
 		backgroundColor,
 		fontSize,
 		textAlign,
-		gridSpace,
-		gridOffset,
-		isNarrow,
-		columnsWidth,
+		timelineWidth,
 		customBackgroundColor,
 		customTextColor,
 		customFontSize,
+		position,
 	} = attributes;
 
 	const textClass = getColorClassName( 'color', textColor );
 	const backgroundClass = getColorClassName( 'background-color', backgroundColor );
 	const fontSizeClass = getFontSizeClass( fontSize );
 
-	const classes = classnames( className, `column`, {
+	const classes = classnames( className, `timeline-item`, {
 		'has-text-color': textColor || customTextColor,
 		'has-background': backgroundColor || customBackgroundColor,
 		[textClass]: textClass,
 		[backgroundClass]: backgroundClass,
 		[fontSizeClass]: fontSizeClass,
-		[`has-width-${columnsWidth}`]: columnsWidth,
+		[position]: position,
+		[`has-width-${timelineWidth}`]: timelineWidth,
 		[`has-text-${ textAlign }`]: textAlign === 'left' || textAlign === 'right',
 		[`has-text-centered`]: textAlign === 'center',
-		[`is-${gridSpace}`]: gridSpace && !isNarrow,
-		[`is-offset-${gridOffset}`]: gridOffset && !isNarrow,
-		[`is-narrow`]: isNarrow,
 	} );
 
 	const styles = {
@@ -54,7 +50,13 @@ export default function save( { attributes } ) {
 
 	return (
 		<div className={ classes } style={styles}>
-			<InnerBlocks.Content />
+			<div className="timeline-marker is-primary">
+			</div>
+			<div className="timeline-content">
+				<div className="timeline-wrap">
+					<InnerBlocks.Content />
+				</div>
+			</div>
 		</div>
 	);
 }

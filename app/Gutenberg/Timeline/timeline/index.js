@@ -7,23 +7,29 @@ const {__} = wp.i18n;
  * Internal dependencies
  */
 import edit from './edit';
-import icon from './icon';
 import save from './save';
 
 wp.domReady(function () {
-	wp.blocks.unregisterBlockType('core/columns');
+	wp.blocks.unregisterBlockType('core/timeline');
 });
 
 
 // Register the block
-wp.blocks.registerBlockType('cypher/columns', {
-	title: __('Columns', 'cypher'),
-	description: __('Add a columns block to wrap several blocks in a parent columns.', 'cypher'),
+wp.blocks.registerBlockType('cypher/timeline', {
+	title: __('Timeline', 'cypher'),
+	description: __('Add a timeline block to wrap several blocks in a parent timeline.', 'cypher'),
 	category: "layout",
+	icon: "backup",
 	attributes: {
-		columns: {
+		timelineItems: {
 			type: "number",
 			default: 2
+		},
+		headerBefore: {
+			type: "string"
+		},
+		headerAfter: {
+			type: "string"
 		},
 		textAlign: {
 			type: "string"
@@ -46,40 +52,25 @@ wp.blocks.registerBlockType('cypher/columns', {
 		customFontSize: {
 			"type": "number"
 		},
-		verticalAlignment: {
-			type: "string"
-		},
-		breakpoint: {
-			type: "string",
-		},
-		gap: {
-			type: "number",
-		},
-		vcentered: {
-			type: "boolean",
-		},
 		centered: {
 			type: "boolean",
 		},
-		multiline: {
-			type: "boolean",
-		},
-		columnsPaddingTop: {
+		timelinePaddingTop: {
 			type: 'number',
 		},
-		columnsPaddingRight: {
+		timelinePaddingRight: {
 			type: 'number',
 		},
-		columnsPaddingBottom: {
+		timelinePaddingBottom: {
 			type: 'number',
 		},
-		columnsPaddingLeft: {
+		timelinePaddingLeft: {
 			type: 'number',
 		},
-		columnsMarginTop: {
+		timelineMarginTop: {
 			type: 'number',
 		},
-		columnsMarginBottom: {
+		timelineMarginBottom: {
 			type: 'number',
 		},
 	},
@@ -88,11 +79,10 @@ wp.blocks.registerBlockType('cypher/columns', {
 		html: false,
 	},
 	keywords: [
-		__('columns', 'cypher'),
+		__('timeline', 'cypher'),
 		__('section', 'cypher'),
 		__('atomic', 'cypher'),
 	],
-	icon,
 	edit,
 	save
 });

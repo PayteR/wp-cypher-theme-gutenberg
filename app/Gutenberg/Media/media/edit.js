@@ -2,7 +2,10 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import {dimImageToStyle} from "./../../utils/utils";
+import {
+	setColorObject,
+	setFontSizeObject
+} from "./../../utils/utils";
 
 /**
  * WordPress dependencies
@@ -21,6 +24,7 @@ const {
 	SelectControl,
 	IconButton,
 	TextControl,
+	ColorPaletteControl,
 } = wp.components;
 
 const {
@@ -29,8 +33,8 @@ const {
 } = wp.element;
 
 const {
-	BlockAlignmentToolbar,
 	InspectorControls,
+	InnerBlocks,
 	BlockControls,
 	AlignmentToolbar,
 	PanelColorSettings,
@@ -38,6 +42,7 @@ const {
 	FontSizePicker,
 	withFontSizes,
 	withColors,
+	ColorPalette,
 } = wp.editor;
 
 const {getComputedStyle} = window;
@@ -65,7 +70,7 @@ const applyFallbackStyles = withFallbackStyles((node, ownProps) => {
  * @constant
  * @type {string[]}
  */
-class IconBlock extends Component {
+class MediaBlock extends Component {
 
 	constructor() {
 		super(...arguments);
@@ -87,36 +92,42 @@ class IconBlock extends Component {
 			setBackgroundColor
 		} = this.props;
 
-		const {
+		let {
 			textAlign,
-			iconPaddingTop,
-			iconPaddingRight,
-			iconPaddingBottom,
-			iconPaddingLeft,
-			iconMarginTop,
-			iconMarginBottom,
-			iconClassName,
-			buttonAlign,
+			mediaPaddingTop,
+			mediaPaddingRight,
+			mediaPaddingBottom,
+			mediaPaddingLeft,
+			mediaMarginTop,
+			mediaMarginBottom,
+			iconLeftClass,
+			iconRightClass,
+			iconLeftColor,
+			iconLeftFontSize,
+			iconRightColor,
+			iconRightFontSize,
 		} = attributes;
 
 
-		const containerClasses = classnames(className, `cypher-icon`, {
+
+		const classes = classnames(className, `media`, {
 			['has-text-color']: textColor.color,
 			['has-background']: backgroundColor.color,
 			[`has-text-${textAlign}`]: textAlign === 'left' || textAlign === 'right',
 			[`has-text-centered`]: textAlign === 'center',
-			[`is-block`]: buttonAlign === 'full',
 			[backgroundColor.class]: backgroundColor.class,
 			[textColor.class]: textColor.class,
 			[fontSize.class]: fontSize.class,
-			['has-pl-' + iconPaddingLeft]: !isNaN(iconPaddingLeft),
-			['has-pr-' + iconPaddingRight]: !isNaN(iconPaddingRight),
-			['has-pb-' + iconPaddingBottom]: !isNaN(iconPaddingBottom),
-			['has-pt-' + iconPaddingTop]: !isNaN(iconPaddingTop),
-			['has-mt-' + iconMarginTop]: !isNaN(iconMarginTop),
-			['has-mb-' + iconMarginBottom]: !isNaN(iconMarginBottom),
+			['has-pl-' + mediaPaddingLeft]: !isNaN(mediaPaddingLeft),
+			['has-pr-' + mediaPaddingRight]: !isNaN(mediaPaddingRight),
+			['has-pb-' + mediaPaddingBottom]: !isNaN(mediaPaddingBottom),
+			['has-pt-' + mediaPaddingTop]: !isNaN(mediaPaddingTop),
+			['has-mt-' + mediaMarginTop]: !isNaN(mediaMarginTop),
+			['has-mb-' + mediaMarginBottom]: !isNaN(mediaMarginBottom),
+			['has-icon']: iconLeftClass || iconRightClass,
+			['has-icon-left']: iconLeftClass,
+			['has-icon-right']: iconRightClass,
 		});
-		const classes = classnames(iconClassName);
 
 		const styles = {
 			backgroundColor: backgroundColor.class ? undefined : backgroundColor.color,
@@ -125,14 +136,37 @@ class IconBlock extends Component {
 			textAlign: textAlign ? textAlign : undefined,
 		};
 
+		iconLeftColor = setColorObject(iconLeftColor);
+		iconRightColor = setColorObject(iconRightColor);
+		iconLeftFontSize = setFontSizeObject(iconLeftFontSize);
+		iconRightFontSize = setFontSizeObject(iconRightFontSize);
+
+		const classesLeft = classnames("media-left", {
+			['has-text-color']: iconLeftColor.color,
+			[iconLeftColor.class]: iconLeftColor.class,
+			[iconLeftFontSize.class]: iconLeftFontSize.class,
+		});
+
+		const stylesLeft = {
+			color: iconLeftColor.class ? undefined : iconLeftColor.color,
+			fontSize: !iconLeftFontSize.class && iconLeftFontSize.size ? iconLeftFontSize.size + 'px' : undefined,
+		};
+
+		const classesRight = classnames("media-right", {
+			['has-text-color']: iconLeftColor.color,
+			[iconRightColor.class]: iconRightColor.class,
+			[iconRightFontSize.class]: iconRightFontSize.class,
+		});
+
+		const stylesRight = {
+			color: iconRightColor.class ? undefined : iconRightColor.color,
+			fontSize: !iconRightFontSize.class && iconRightFontSize.size ? iconRightFontSize.size + 'px' : undefined,
+		};
+
+
 		return (
 			<Fragment>
 				<BlockControls>
-					<BlockAlignmentToolbar
-						value={buttonAlign}
-						onChange={buttonAlign => setAttributes({buttonAlign})}
-						controls={['left', 'full']}
-					/>
 					<AlignmentToolbar
 						value={textAlign}
 						onChange={(nextTextAlign) => {
@@ -141,16 +175,50 @@ class IconBlock extends Component {
 					/>
 				</BlockControls>
 				<InspectorControls key="inspector">
-					<PanelBody title={__('Icon Options')} initialOpen={true}>
+					<PanelBody title={__('Icons')} initialOpen={true}>
 						<TextControl
-							label="Icon class name"
-							value={iconClassName}
-							onChange={(value) => setAttributes({iconClassName: value})}
+							label="Icon left class"
+							value={ iconLeftClass }
+							onChange={ ( iconLeftClassNext ) => setAttributes( { iconLeftClass: iconLeftClassNext } ) }
 						/>
+						<FontSizePicker
+							value={iconLeftFontSize.size}
+							onChange={ ( value ) => {
+								setAttributes( { iconLeftFontSize: setFontSizeObject(value) } )
+							} }
+						/>
+						<ColorPalette
+							color={ iconLeftColor.color }
+							onChange={ ( value ) => {
+								setAttributes( { iconLeftColor: setColorObject(value) } )
+							} }
+							disableAlpha
+						/>
+						<TextControl
+							label="Icon class after"
+							value={ iconRightClass }
+							onChange={ ( iconRightClassNext ) => setAttributes( { iconRightClass: iconRightClassNext } ) }
+						/>
+						<FontSizePicker
+							value={iconRightFontSize.size}
+							onChange={ ( value ) => {
+								setAttributes( { iconRightFontSize: setFontSizeObject(value) } )
+							} }
+						/>
+						<ColorPalette
+							label="Icon right class"
+							color={ iconRightColor.color }
+							onChange={ ( value ) => {
+								setAttributes( { iconRightColor: setColorObject(value) } )
+							} }
+							disableAlpha
+						/>
+					</PanelBody>
+					<PanelBody title={__('Media Options')} initialOpen={true}>
 						<RangeControl
 							label={__('Padding Top')}
-							value={iconPaddingTop}
-							onChange={(value) => setAttributes({iconPaddingTop: value})}
+							value={mediaPaddingTop}
+							onChange={(value) => setAttributes({mediaPaddingTop: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -158,8 +226,8 @@ class IconBlock extends Component {
 
 						<RangeControl
 							label={__('Padding Bottom')}
-							value={iconPaddingBottom}
-							onChange={(value) => setAttributes({iconPaddingBottom: value})}
+							value={mediaPaddingBottom}
+							onChange={(value) => setAttributes({mediaPaddingBottom: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -167,8 +235,8 @@ class IconBlock extends Component {
 
 						<RangeControl
 							label={__('Padding Left')}
-							value={iconPaddingLeft}
-							onChange={(value) => setAttributes({iconPaddingLeft: value})}
+							value={mediaPaddingLeft}
+							onChange={(value) => setAttributes({mediaPaddingLeft: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -176,8 +244,8 @@ class IconBlock extends Component {
 
 						<RangeControl
 							label={__('Padding Right')}
-							value={iconPaddingRight}
-							onChange={(value) => setAttributes({iconPaddingRight: value})}
+							value={mediaPaddingRight}
+							onChange={(value) => setAttributes({mediaPaddingRight: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -185,8 +253,8 @@ class IconBlock extends Component {
 
 						<RangeControl
 							label={__('Margin Top')}
-							value={iconMarginTop}
-							onChange={(value) => setAttributes({iconMarginTop: value})}
+							value={mediaMarginTop}
+							onChange={(value) => setAttributes({mediaMarginTop: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -194,8 +262,8 @@ class IconBlock extends Component {
 
 						<RangeControl
 							label={__('Margin Bottom')}
-							value={iconMarginBottom}
-							onChange={(value) => setAttributes({iconMarginBottom: value})}
+							value={mediaMarginBottom}
+							onChange={(value) => setAttributes({mediaMarginBottom: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -236,10 +304,25 @@ class IconBlock extends Component {
 						/>
 					</PanelColorSettings>
 				</InspectorControls>
-				<span className={containerClasses} style={styles}>
-					<i className={classes}>
-					</i>
-				</span>
+				<div className={classes} style={styles}>
+					{ iconLeftClass && (
+						<div className={classesLeft} style={stylesLeft}>
+							<span className="icon">
+								<i className={iconLeftClass}></i>
+							</span>
+						</div>
+					)}
+					<div class="media-content">
+						<InnerBlocks/>
+					</div>
+					{ iconRightClass && (
+						<div className={classesRight} style={stylesRight}>
+							<span className="icon">
+								<i className={iconRightClass}></i>
+							</span>
+						</div>
+					)}
+				</div>
 			</Fragment>
 		);
 	}
@@ -252,4 +335,4 @@ export default compose(
 	 * Selects the child column Blocks for this parent Column
 	 */
 	applyFallbackStyles,
-)(IconBlock);
+)(MediaBlock);

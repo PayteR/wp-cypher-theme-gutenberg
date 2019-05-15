@@ -55,7 +55,7 @@ export default function save({attributes}) {
 					<i className={iconBeforeClass}></i>
 				</span>
 			)}
-			<span>{buttonText}</span>
+			<span className="button-inner">{buttonText}</span>
 			{ iconAfterClass && (
 				<span className="icon">
 					<i className={iconAfterClass}></i>

@@ -90,6 +90,22 @@ class Blocks
     /**
      * Theme customizer
      */
+    public static function media()
+    {
+        add_action( 'enqueue_block_editor_assets', [Media\Block::class, 'init'] );
+    }
+
+    /**
+     * Theme customizer
+     */
+    public static function timeline()
+    {
+        add_action( 'enqueue_block_editor_assets', [Timeline\Block::class, 'init'] );
+    }
+
+    /**
+     * Theme customizer
+     */
     public static function hero()
     {
         add_action( 'enqueue_block_editor_assets', [Hero\Block::class, 'init'] );

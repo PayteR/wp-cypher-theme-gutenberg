@@ -1,5 +1,5 @@
 /**
- * BLOCK: Atomic Blocks Example
+ * BLOCK: Atomic Blocks Media
  */
 
 // Import block dependencies and components
@@ -14,22 +14,22 @@ const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
 const blockAttributes = {
-	examplePaddingTop: {
+	mediaPaddingTop: {
 		type: 'number',
 	},
-	examplePaddingRight: {
+	mediaPaddingRight: {
 		type: 'number',
 	},
-	examplePaddingBottom: {
+	mediaPaddingBottom: {
 		type: 'number',
 	},
-	examplePaddingLeft: {
+	mediaPaddingLeft: {
 		type: 'number',
 	},
-	exampleMarginTop: {
+	mediaMarginTop: {
 		type: 'number',
 	},
-	exampleMarginBottom: {
+	mediaMarginBottom: {
 		type: 'number',
 	},
 	textAlign: {
@@ -53,29 +53,47 @@ const blockAttributes = {
 	customFontSize: {
 		"type": "number"
 	},
+	iconLeftClass: {
+		type: "string",
+	},
+	iconLeftFontSize: {
+		type: "object"
+	},
+	iconLeftColor: {
+		type: "string"
+	},
+	iconRightClass: {
+		type: "string",
+	},
+	iconRightFontSize: {
+		type: "object"
+	},
+	iconRightColor: {
+		type: "string"
+	},
 };
 
 wp.domReady(function () {
-	// wp.blocks.unregisterBlockType('core/button');
+	wp.blocks.unregisterBlockType('core/media-text');
 });
 
 
 // Register the block
-registerBlockType( 'cypher/example', {
-	title: __( 'Example', 'cypher' ),
-	description: __( 'Add a example block to wrap several blocks in a parent example.', 'cypher' ),
+registerBlockType( 'cypher/media', {
+	title: __( 'Media', 'cypher' ),
+	description: __( 'Add a media block to wrap several blocks in a parent media.', 'cypher' ),
 	category: 'layout',
 	keywords: [
-		__( 'example', 'cypher' ),
+		__( 'media', 'cypher' ),
 		__( 'section', 'cypher' ),
 		__( 'atomic', 'cypher' ),
 	],
 
 	attributes: blockAttributes,
 
-	// getEditWrapperProps( { exampleWidth } ) {
-	// 	if ( 'left' === exampleWidth || 'right' === exampleWidth || 'full' === exampleWidth ) {
-	// 		return { 'data-align': exampleWidth };
+	// getEditWrapperProps( { mediaWidth } ) {
+	// 	if ( 'left' === mediaWidth || 'right' === mediaWidth || 'full' === mediaWidth ) {
+	// 		return { 'data-align': mediaWidth };
 	// 	}
 	// },
 	icon,

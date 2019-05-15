@@ -19,6 +19,7 @@ const {
 	withFallbackStyles,
 	SelectControl,
 	ToggleControl,
+	TextControl,
 } = wp.components;
 
 const {
@@ -30,7 +31,6 @@ const {
 	InspectorControls,
 	InnerBlocks,
 	BlockControls,
-	BlockVerticalAlignmentToolbar,
 	AlignmentToolbar,
 	PanelColorSettings,
 	ContrastChecker,
@@ -47,7 +47,7 @@ const {withSelect, withDispatch} = wp.data;
 /**
  * Internal dependencies
  */
-import {getColumnsTemplate} from './utils';
+import {getTimelineTemplate} from './utils';
 
 
 const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
@@ -67,14 +67,14 @@ const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
  * Allowed blocks constant is passed to InnerBlocks precisely as specified here.
  * The contents of the array should never change.
  * The array should contain the name of each block that is allowed.
- * In columns block, the only block we allow is 'cypher/column'.
+ * In timeline block, the only block we allow is 'cypher/item'.
  *
  * @constant
  * @type {string[]}
  */
-const ALLOWED_BLOCKS = ['cypher/column'];
+const ALLOWED_BLOCKS = ['cypher/item'];
 
-class ColumnsBlock extends Component {
+class TimelineBlock extends Component {
 
 	constructor() {
 		super( ...arguments );
@@ -98,41 +98,35 @@ class ColumnsBlock extends Component {
 		} = this.props;
 
 		const {
-			gap,
-			columns,
+			timelineItems,
 			textAlign,
-			breakpoint,
-			vcentered,
 			centered,
-			multiline,
-			columnsPaddingTop,
-			columnsPaddingRight,
-			columnsPaddingBottom,
-			columnsPaddingLeft,
-			columnsMarginTop,
-			columnsMarginBottom,
+			timelinePaddingTop,
+			timelinePaddingRight,
+			timelinePaddingBottom,
+			timelinePaddingLeft,
+			timelineMarginTop,
+			timelineMarginBottom,
+			headerBefore,
+			headerAfter,
 		} = attributes;
 
 
-		const classes = classnames( className, `columns`, {
+		const classes = classnames( className, `timeline`, {
 			['has-text-color']: textColor.color,
 			['has-background']: backgroundColor.color,
 			[`has-text-${textAlign}`]: textAlign === 'left' || textAlign === 'right',
 			[`has-text-centered`]: textAlign === 'center',
-			[breakpoint]: breakpoint,
-			[`is-variable is-${gap}`]: gap,
 			[backgroundColor.class]: backgroundColor.class,
 			[textColor.class]: textColor.class,
 			[fontSize.class]: fontSize.class,
-			['is-vcentered']: vcentered,
 			['is-centered']: centered,
-			['is-multiline']: multiline,
-			['has-pl-' + columnsPaddingLeft]: !isNaN(columnsPaddingLeft),
-			['has-pr-' + columnsPaddingRight]: !isNaN(columnsPaddingRight),
-			['has-pb-' + columnsPaddingBottom]: !isNaN(columnsPaddingBottom),
-			['has-pt-' + columnsPaddingTop]: !isNaN(columnsPaddingTop),
-			['has-mt-' + columnsMarginTop]: !isNaN(columnsMarginTop),
-			['has-mb-' + columnsMarginBottom]: !isNaN(columnsMarginBottom),
+			['has-pl-' + timelinePaddingLeft]: !isNaN(timelinePaddingLeft),
+			['has-pr-' + timelinePaddingRight]: !isNaN(timelinePaddingRight),
+			['has-pb-' + timelinePaddingBottom]: !isNaN(timelinePaddingBottom),
+			['has-pt-' + timelinePaddingTop]: !isNaN(timelinePaddingTop),
+			['has-mt-' + timelineMarginTop]: !isNaN(timelineMarginTop),
+			['has-mb-' + timelineMarginBottom]: !isNaN(timelineMarginBottom),
 		} );
 
 		const styles = {
@@ -151,63 +145,38 @@ class ColumnsBlock extends Component {
 							setAttributes( { textAlign: nextTextAlign } );
 						} }
 					/>
-					{/*<BlockVerticalAlignmentToolbar*/}
-						{/*value={ verticalAlignment }*/}
-						{/*onChange={ alignment => {*/}
-							{/*updateAlignment( alignment );*/}
-						{/*} }*/}
-					{/*/>*/}
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody>
+						<TextControl
+							label="Header before"
+							value={ headerBefore }
+							onChange={ ( value ) => setAttributes( { headerBefore: value } ) }
+							onMouseoput
+						/>
+						<TextControl
+							label="Header after"
+							value={ headerAfter }
+							onChange={ ( value ) => setAttributes( { headerAfter: value } ) }
+							onMouseoput
+						/>
+					</PanelBody>
+					<PanelBody>
 						<RangeControl
-							label={ __( 'Columns' ) }
-							value={ columns }
-							onChange={ ( nextColumns ) => {
+							label={ __( 'Timeline items' ) }
+							value={ timelineItems }
+							onChange={ ( nextTimeline ) => {
 								setAttributes( {
-									columns: nextColumns,
+									timelineItems: nextTimeline,
 								} );
 							} }
 							min={ 1 }
 							max={ 12 }
 						/>
-						<SelectControl
-							label={ __( 'Breakpoint' ) }
-							value={ breakpoint } // e.g: value = [ 'a', 'c' ]
-							onChange={ ( breakpointNext ) => { setAttributes( { breakpoint: breakpointNext } ) } }
-							options={ [
-								{ value: '', label: 'default' },
-								{ value: 'is-mobile', label: 'mobile' },
-								{ value: 'is-small', label: 'small' },
-								{ value: 'is-tablet', label: 'tablet' },
-								{ value: 'is-desktop', label: 'desktop' },
-							] }
-						/>
-						<RangeControl
-							label={ __( 'Gap' ) }
-							value={ gap }
-							onChange={ ( nextGap ) => {
-								setAttributes( {
-									gap: nextGap,
-								} );
-							} }
-							min={ 0 }
-							max={ 8 }
-						/>
-						<ToggleControl
-							label={ __( 'vcentered' ) }
-							checked={ vcentered }
-							onChange={ ( vcenteredNext ) => { setAttributes( { vcentered: vcenteredNext } ) } }
-						/>
 						<ToggleControl
 							label={ __( 'centered' ) }
 							checked={ centered }
 							onChange={ ( centeredNext ) => { setAttributes( { centered: centeredNext } ) } }
-						/>
-						<ToggleControl
-							label={ __( 'multiline' ) }
-							checked={ multiline }
-							onChange={ ( multilineNext ) => { setAttributes( { multiline: multilineNext } ) } }
 						/>
 					</PanelBody>
 					<PanelBody
@@ -250,10 +219,10 @@ class ColumnsBlock extends Component {
 					<PanelBody title={__('Container Options')} initialOpen={false}>
 						<RangeControl
 							label={__('Padding Top')}
-							value={columnsPaddingTop}
+							value={timelinePaddingTop}
 							onChange={(value) => {
 								console.log(value)
-								setAttributes({columnsPaddingTop: value})
+								setAttributes({timelinePaddingTop: value})
 							}}
 							min={0}
 							max={6}
@@ -262,8 +231,8 @@ class ColumnsBlock extends Component {
 
 						<RangeControl
 							label={__('Padding Bottom')}
-							value={columnsPaddingBottom}
-							onChange={(value) => setAttributes({columnsPaddingBottom: value})}
+							value={timelinePaddingBottom}
+							onChange={(value) => setAttributes({timelinePaddingBottom: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -271,8 +240,8 @@ class ColumnsBlock extends Component {
 
 						<RangeControl
 							label={__('Padding Left')}
-							value={columnsPaddingLeft}
-							onChange={(value) => setAttributes({columnsPaddingLeft: value})}
+							value={timelinePaddingLeft}
+							onChange={(value) => setAttributes({timelinePaddingLeft: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -280,8 +249,8 @@ class ColumnsBlock extends Component {
 
 						<RangeControl
 							label={__('Padding Right')}
-							value={columnsPaddingRight}
-							onChange={(value) => setAttributes({columnsPaddingRight: value})}
+							value={timelinePaddingRight}
+							onChange={(value) => setAttributes({timelinePaddingRight: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -289,8 +258,8 @@ class ColumnsBlock extends Component {
 
 						<RangeControl
 							label={__('Margin Top')}
-							value={columnsMarginTop}
-							onChange={(value) => setAttributes({columnsMarginTop: value})}
+							value={timelineMarginTop}
+							onChange={(value) => setAttributes({timelineMarginTop: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -298,8 +267,8 @@ class ColumnsBlock extends Component {
 
 						<RangeControl
 							label={__('Margin Bottom')}
-							value={columnsMarginBottom}
-							onChange={(value) => setAttributes({columnsMarginBottom: value})}
+							value={timelineMarginBottom}
+							onChange={(value) => setAttributes({timelineMarginBottom: value})}
 							min={0}
 							max={6}
 							step={1}
@@ -307,10 +276,20 @@ class ColumnsBlock extends Component {
 					</PanelBody>
 				</InspectorControls>
 				<div className={ classes } style={styles}>
+					{ headerBefore && (
+					<header className="timeline-header">
+						<span className="tag is-medium is-primary">{ headerBefore }</span>
+					</header>
+					)}
 					<InnerBlocks
-						template={ getColumnsTemplate( columns ) }
+						template={ getTimelineTemplate( timelineItems ) }
 						templateLock="all"
 						allowedBlocks={ ALLOWED_BLOCKS } />
+					{ headerAfter && (
+						<header className="timeline-header">
+							<span className="tag is-medium is-primary">{ headerAfter }</span>
+						</header>
+					)}
 				</div>
 			</Fragment>
 		);
@@ -323,7 +302,7 @@ export default compose(
 	withColors( 'backgroundColor', { textColor: 'color' } ),
 	withFontSizes( 'fontSize' ),
 	/**
-	 * Selects the child column Blocks for this parent Column
+	 * Selects the child item Blocks for this parent Item
 	 */
 	applyFallbackStyles,
 
@@ -332,33 +311,21 @@ export default compose(
 		const block = getBlocksByClientId( clientId )[ 0 ];
 
 		return {
-			childColumns: block ? block.innerBlocks : DEFAULT_EMPTY_ARRAY,
+			childTimeline: block ? block.innerBlocks : DEFAULT_EMPTY_ARRAY,
 		};
 	} ),
 
-	withDispatch( ( dispatch, { clientId, childColumns } ) => {
+	withDispatch( ( dispatch, { clientId, childTimeline } ) => {
 		return {
 			/**
-			 * Update all child column Blocks with a new
+			 * Update all child item Blocks with a new
 			 * vertical alignment setting based on whatever
 			 * alignment is passed in. This allows change to parent
-			 * to overide anything set on a individual column basis
+			 * to overide anything set on a individual item basis
 			 *
 			 * @param  {string} alignment the vertical alignment setting
 			 */
-			updateAlignment( alignment ) {
-				// Update self...
-				dispatch( 'core/editor' ).updateBlockAttributes( clientId, {
-					verticalAlignment: alignment,
-				} );
 
-				// Update all child Column Blocks to match
-				childColumns.forEach( ( childColumn ) => {
-					dispatch( 'core/editor' ).updateBlockAttributes( childColumn.clientId, {
-						verticalAlignment: alignment,
-					} );
-				} );
-			},
 		};
 	} ),
-)( ColumnsBlock );
+)( TimelineBlock );

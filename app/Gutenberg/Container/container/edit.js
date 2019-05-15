@@ -209,8 +209,8 @@ class ContainerBlock extends Component {
 							label={__('Inside Container Max Width (px)')}
 							value={containerMaxWidth}
 							onChange={(value) => setAttributes({containerMaxWidth: value})}
-							min={500}
-							max={1600}
+							min={200}
+							max={1920}
 							step={1}
 						/>
 					</PanelBody>
