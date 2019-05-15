@@ -112,7 +112,7 @@ class DividerBlock extends Component {
 			borderColor: backgroundColor.color ? backgroundColor.color : undefined,
 			color: textColor.color ? textColor.color : undefined,
 			fontSize: fontSize && fontSize.size ? fontSize.size + 'px' : undefined,
-			borderWidth: dividerWidth ? dividerWidth : undefined,
+			borderWidth: !isNaN(dividerWidth) ? dividerWidth : undefined,
 		};
 
 

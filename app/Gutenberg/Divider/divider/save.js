@@ -58,7 +58,7 @@ export default function save({attributes}) {
 		backgroundColor: backgroundClass ? undefined : customBackgroundColor,
 		color: textClass ? undefined : customTextColor,
 		fontSize: fontSize ? undefined : customFontSize,
-		borderWidth: dividerWidth ? dividerWidth : undefined,
+		borderWidth: !isNaN(dividerWidth) ? dividerWidth : undefined,
 	};
 
 	return (
