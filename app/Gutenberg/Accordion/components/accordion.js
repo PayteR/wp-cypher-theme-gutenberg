@@ -31,7 +31,7 @@ export default class Accordion extends Component {
 		} = this.props.attributes;
 
 
-		let hrefHash = 'accordion-' + (accordionHrefHash ? slugify(accordionHrefHash) : slugify(accordionTitle));
+		let hrefHash = (accordionHrefHash ? slugify(accordionHrefHash) : slugify(accordionTitle));
 
 		return (	
 			<div id={ hrefHash }
