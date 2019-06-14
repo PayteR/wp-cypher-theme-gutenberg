@@ -129,7 +129,7 @@ registerBlockType( 'cypher/accordion', {
 			accordionHrefHash
 		} = props.attributes;
 
-		let hrefHash = 'accordion-' + (accordionHrefHash ? slugify(accordionHrefHash) : slugify(accordionTitle));
+		let hrefHash = (accordionHrefHash ? slugify(accordionHrefHash) : slugify(accordionTitle));
 
 		// Save the block markup for the front end
 		return (
