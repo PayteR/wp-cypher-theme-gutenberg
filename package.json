@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "classnames": "^2.2.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "memize": "^1.0.5"
   }
 }
