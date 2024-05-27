@@ -77,7 +77,7 @@ const blockAttributes = {
 };
 
 wp.domReady(function () {
-	wp.blocks.unregisterBlockType('core/button');
+	//wp.blocks.unregisterBlockType('core/button');
 });
 
 // Register the block
